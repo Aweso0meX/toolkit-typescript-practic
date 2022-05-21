@@ -15,41 +15,40 @@ const initialState : UserState = {
   error : '' ,
 }
 
-export const userSlice = createSlice ( {
+export const userSlice = createSlice ({
   name : 'User' ,
   initialState ,
   reducers : {
-    usersFetching ( state ) {
+    usersFetching (state) {
       state.isLoading = true
 
     } ,
-    usersFetchingSuccess ( state , action : PayloadAction<IUser[]> ) {
+    usersFetchingSuccess (state , action : PayloadAction<IUser[]>) {
       state.isLoading = false
       state.error = ''
       state.users = action.payload
 
     } ,
-    usersFetchingError ( state , action : PayloadAction<string> ) {
+    usersFetchingError (state , action : PayloadAction<string>) {
       state.isLoading = false
       state.error = action.payload
 
     } ,
   } ,
   extraReducers : {
-    [ fetchUsers.fulfilled.type ] : ( state , action : PayloadAction<IUser[]> ) => {
+    [ fetchUsers.fulfilled.type ] : (state , action : PayloadAction<IUser[]>) => {
       state.isLoading = false
       state.error = ''
       state.users = action.payload
     } ,
-    [ fetchUsers.pending.type ] : ( state ) => {
+    [ fetchUsers.pending.type ] : (state) => {
       state.isLoading = true
     } ,
-    [ fetchUsers.rejected.type ] : ( state , action : PayloadAction<string> ) => {
+    [ fetchUsers.rejected.type ] : (state , action : PayloadAction<string>) => {
       state.isLoading = false
       state.error = action.payload
     }
   }
-} )
+})
 
-export const {} = userSlice.actions
 export const userSliceReducer = userSlice.reducer
